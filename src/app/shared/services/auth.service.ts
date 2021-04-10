@@ -20,6 +20,10 @@ export class AuthService {
         );
     }
 
+    register(data: any): Observable<any> {
+        return this._http.post(`${this.API_BASE_URL}/auth/register`, data)
+    }
+
     logout(): Observable<any> {
         return this._http.post(`${this.API_BASE_URL}/auth/logout`, {}).pipe(
             tap(_ => { localStorage.removeItem(this.JWT) })

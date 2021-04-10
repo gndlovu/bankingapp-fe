@@ -1,0 +1,52 @@
+<div class="auth-container">
+    <div class="vertical-center">
+        <div class="card auth-card">
+            <div class="card-header text-center">
+                Register
+            </div>
+            <div class="card-body">
+                <form (ngSubmit)="onRegister()" [formGroup]="registerForm">
+                    <div class="form-group">
+                        <label for="name">Full Name:</label>
+                        <input type="text" class="form-control" id="name" formControlName="name"
+                            [ngClass]="{'is-invalid': f.name.touched && f.name.invalid}">
+                        <control-messages class="invalid-feedback" [control]="f.name"></control-messages>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address:</label>
+                        <input type="email" class="form-control" id="email" formControlName="email"
+                            [ngClass]="{'is-invalid': f.email.touched && f.email.invalid}">
+                        <control-messages class="invalid-feedback" [control]="f.email"></control-messages>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" formControlName="password"
+                            [ngClass]="{'is-invalid': f.password.touched && f.password.invalid}">
+                        <control-messages class="invalid-feedback" [control]="f.password"></control-messages>
+                    </div>
+                    <div class="form-group">
+                        <label for="password_confirmation">Repeat Password:</label>
+                        <input type="password" class="form-control" id="password_confirmation"
+                            formControlName="password_confirmation"
+                            [ngClass]="{'is-invalid': f.password_confirmation.touched && f.password_confirmation.invalid}">
+                        <control-messages class="invalid-feedback" [control]="f.password_confirmation">
+                        </control-messages>
+                    </div>
+
+                    <button type="submit" class="btn mt-5 btn-block"
+                        [class]="registerForm.valid ? 'btn-primary' : 'btn-secondary disabled'"
+                        [disabled]="!registerForm.valid">
+                        <app-three-o-loader [originText]="'Create Account!'"></app-three-o-loader>
+                    </button>
+                </form>
+                <div class="text-center mt-3">
+                    <a routerLink="/auth/login">Already have an account?</a>
+                </div>
+                <small id="emailHelp" class="form-text text-muted mt-3">
+                    You'll receive a confirmation email in your inbox with a link to activate your account.
+                    If you experience any problems, <a href="#">contact us</a>!
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
