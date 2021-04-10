@@ -2,6 +2,10 @@ a {
     text-decoration: none !important;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .auth-container {
     height: 100vh;
     background-image: linear-gradient(whitesmoke 50%, grey 50%);
