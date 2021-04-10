@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Jwt } from '../models/jwt';
 import { environment } from '../../../environments/environment';
+import { Register } from '../models/register';
+import { Login } from '../models/login';
 
 @Injectable({
     providedIn: 'root'
@@ -14,13 +16,13 @@ export class AuthService {
 
     constructor(private _http: HttpClient) { }
 
-    login(data: any): Observable<any> {
+    login(data: Login): Observable<any> {
         return this._http.post(`${this.API_BASE_URL}/auth/login`, data).pipe(
             tap(auth => { localStorage.setItem(this.JWT, JSON.stringify(auth)) })
         );
     }
 
-    register(data: any): Observable<any> {
+    register(data: Register): Observable<any> {
         return this._http.post(`${this.API_BASE_URL}/auth/register`, data)
     }
 
