@@ -9,6 +9,7 @@ import { AuthService } from '../../shared/services/auth.service';
 })
 export class NavbarComponent implements OnInit {
     profile: any;
+    isNavbarCollapsed = true;
 
     constructor(private _auth: AuthService, private _router: Router) { }
 
