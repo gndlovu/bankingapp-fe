@@ -11,7 +11,6 @@
                     <th scope="col">Transaction Type</th>
                     <th scope="col">Recipient Account</th>
                     <th scope="col">Reference</th>
-                    <th scope="col">Recipient reference</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Created Date</th>
                 </tr>
@@ -19,9 +18,8 @@
             <tbody>
                 <tr *ngFor="let transaction of transactions">
                     <td>{{transaction.type}}</td>
-                    <td>Account | branch | acc holder & number</td>
-                    <td>{{transaction.my_reference}}</td>
-                    <td>{{transaction.their_reference || '-'}}</td>
+                    <td>{{transaction.to_account?.account_no}}</td>
+                    <td>{{transaction.reference}}</td>
                     <td>{{transaction.amount}}</td>
                     <td>{{transaction.created_at | date}}</td>
                 </tr>
