@@ -36,6 +36,11 @@ export class LoginComponent implements OnInit {
                 case 401:
                     this._toastr.error('Credentials invalid, please try again.')
                     break;
+                case 400:
+                    this._auth.resendVerification(this.f.email.value).subscribe(_ => {
+                        this._toastr.error('Email not verified. Check your email for a verification link.');
+                    });
+                    break;
                 case 301:
                     // toDo - Google Two-Factor authentication
                     break;

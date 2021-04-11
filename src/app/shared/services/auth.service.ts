@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Jwt } from '../models/jwt';
@@ -24,6 +24,16 @@ export class AuthService {
 
     register(data: Register): Observable<any> {
         return this._http.post(`${this.API_BASE_URL}/auth/register`, data);
+    }
+
+    verify(user_id: any, params: any): Observable<any> {
+        return this._http.get(`${this.API_BASE_URL}/auth/email/verify/${user_id}`, {
+            params: new HttpParams({ fromObject: params })
+        });
+    }
+
+    resendVerification(email: string): Observable<any> {
+        return this._http.post(`${this.API_BASE_URL}/auth/email/resend`, { email });
     }
 
     profile(): Observable<any> {

@@ -6,9 +6,10 @@ import { LoginComponent } from './login/login.component';
 import { ControlMessagesModule } from '../../shared/components/control-messages/control-messages.module';
 import { ThreeOLoaderModule } from '../../shared/components/control-messages/three-o-loader/three-o-loader.module';
 import { RegisterComponent } from './register/register.component';
+import { EmailVerifyComponent } from './email-verify/email-verify.component';
 
 @NgModule({
-    declarations: [LoginComponent, RegisterComponent],
+    declarations: [LoginComponent, RegisterComponent, EmailVerifyComponent],
     imports: [
         CommonModule,
         ReactiveFormsModule,
