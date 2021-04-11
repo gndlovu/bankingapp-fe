@@ -7,7 +7,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ErrorComponent } from './pages/error/error.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
@@ -15,8 +14,7 @@ import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
 @NgModule({
     declarations: [
         AppComponent,
-        ErrorComponent,
-        DashboardComponent,
+        ErrorComponent
     ],
     imports: [
         BrowserModule,
