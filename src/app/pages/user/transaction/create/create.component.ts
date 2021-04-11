@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ValidationService } from '../../../../shared/validators/form-fields.validator';
 import { TransactionService } from '../../../../shared/services/transaction.service';
+import { AccountService } from '../../../../shared/services/account.service';
 
 @Component({
     selector: 'app-create',
@@ -13,10 +14,11 @@ import { TransactionService } from '../../../../shared/services/transaction.serv
 export class CreateComponent implements OnInit {
     account: any;
     transactionType: any;
+    accounts: any;
 
-    depositForm = new FormGroup({
+    transactionForm = new FormGroup({
         amount: new FormControl('', { validators: [Validators.required, ValidationService.numberValidator] }),
-        my_reference: new FormControl('', Validators.required),
+        reference: new FormControl('', Validators.required),
         type: new FormControl('')
     });
 
@@ -24,7 +26,8 @@ export class CreateComponent implements OnInit {
         private _router: Router,
         private _route: ActivatedRoute,
         private _transaction: TransactionService,
-        private _toastr: ToastrService
+        private _toastr: ToastrService,
+        private _account: AccountService
     ) { }
 
     ngOnInit(): void {
@@ -34,16 +37,29 @@ export class CreateComponent implements OnInit {
         });
 
         this.f.type.setValue(this.transactionType);
+
+        // Add account to transfer funds to.
+        if (this.transactionType === 'transfer') {
+            this._account.accountList().subscribe(accounts => {
+                this.accounts = accounts.filter((a: any) => a.id !== this.account.id);
+            });
+
+            this.transactionForm.addControl('to_account_id', new FormControl('', Validators.required));
+        }
     }
 
-    get f(): { [key: string]: AbstractControl } { return this.depositForm.controls; }
+    get f(): { [key: string]: AbstractControl } { return this.transactionForm.controls; }
+
+    changeValue(e: any) {
+        this.f.to_account_id.setValue(e.target.value);
+    }
 
     onDeposit(): void {
-        if (!this.depositForm.dirty && !this.depositForm.valid) {
+        if (!this.transactionForm.dirty && !this.transactionForm.valid) {
             return;
         }
 
-        this._transaction.create(this.account.id, this.depositForm.value).subscribe(_ => {
+        this._transaction.create(this.account.id, this.transactionForm.value).subscribe(_ => {
             this._router.navigate(['/transactions', this.account.id, 'list']);
         }, (err: any) => {
             this._toastr.error(err.error.message);

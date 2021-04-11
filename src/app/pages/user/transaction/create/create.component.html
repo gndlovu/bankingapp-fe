@@ -3,24 +3,34 @@
         {{account.account_no}} : New {{transactionType}}
     </div>
     <div class="card-body">
-        <form (ngSubmit)="onDeposit()" [formGroup]="depositForm">
+        <form (ngSubmit)="onDeposit()" [formGroup]="transactionForm">
             <div class="row">
+                <div class="col" *ngIf="transactionType === 'transfer'">
+                    <select class="form-control" id="to_account_id" formControlName="to_account_id"
+                        [ngClass]="{'is-invalid': f.to_account_id.touched && f.to_account_id.invalid}"
+                        (change)="changeValue($event)">
+                        <option value="" disabled>Choose transferee account</option>
+                        <option *ngFor="let account of accounts" [value]="account.id">
+                            {{account.account_no}}
+                        </option>
+                    </select>
+                    <control-messages class="invalid-feedback" [control]="f.to_account_id"></control-messages>
+                </div>
                 <div class="col">
                     <input type="text" class="form-control" id="amount" formControlName="amount" placeholder="Amount"
                         [ngClass]="{'is-invalid': f.amount.touched && f.amount.invalid}">
                     <control-messages class="invalid-feedback" [control]="f.amount"></control-messages>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" id="my_reference" formControlName="my_reference"
-                        placeholder="Reference"
-                        [ngClass]="{'is-invalid': f.my_reference.touched && f.my_reference.invalid}">
-                    <control-messages class="invalid-feedback" [control]="f.my_reference"></control-messages>
+                    <input type="text" class="form-control" id="reference" formControlName="reference"
+                        placeholder="Reference" [ngClass]="{'is-invalid': f.reference.touched && f.reference.invalid}">
+                    <control-messages class="invalid-feedback" [control]="f.reference"></control-messages>
                 </div>
                 <div class="col">
                     <button type="submit" class="btn btn-block"
-                        [class]="depositForm.valid ? 'btn-primary' : 'btn-secondary disabled'"
-                        [disabled]="!depositForm.valid">
-                        <app-three-o-loader [originText]="'Deposit!'"></app-three-o-loader>
+                        [class]="transactionForm.valid ? 'btn-primary' : 'btn-secondary disabled'"
+                        [disabled]="!transactionForm.valid">
+                        <app-three-o-loader [originText]="transactionType | titlecase"></app-three-o-loader>
                     </button>
                 </div>
             </div>
