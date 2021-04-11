@@ -1,0 +1,43 @@
+<div class="card">
+    <div class="card-header">
+        Your Bank Accounts <a class="float-right" routerLink="/accounts/create">New Account</a>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title"></h5>
+        <table class="table table-sm table-hover table-striped"
+            *ngIf="accounts && accounts.length; else noAccountsBlock">
+            <thead>
+                <tr>
+                    <th scope="col">Account Number</th>
+                    <th scope="col">Created Date</th>
+                    <th scope="col">Last Update</th>
+                    <th scope="col">Balance</th>
+                    <th scope="col">Overdraft</th>
+                    <th scope="col" class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let account of accounts">
+                    <td>{{account.account_no}}</td>
+                    <td>{{account.created_at | date}}</td>
+                    <td>{{account.updated_at | date}}</td>
+                    <td>{{account.balance}}</td>
+                    <td>{{account.overdraft}}</td>
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <a routerLink="/transactions/deposit" class="btn btn-outline-secondary btn-sm">Deposit</a>
+                            <a routerLink="/transactions/deposit" class="btn btn-outline-secondary btn-sm">Withdraw</a>
+                            <a routerLink="/transactions/deposit" class="btn btn-outline-secondary btn-sm">Transfer</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ng-template #noAccountsBlock>
+            <p class="text-info text-center">
+                You do not have bank accounts. Click <a routerLink="/accounts/create">here</a> to
+                create a new account.
+            </p>
+        </ng-template>
+    </div>
+</div>

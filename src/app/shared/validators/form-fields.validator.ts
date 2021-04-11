@@ -9,7 +9,8 @@ export class ValidationService {
             passwordMatch: 'Your passwords do not match.',
             minlength: `Must contain a minimum length of ${validatorValue.requiredLength} characters.`,
             maxlength: `Must contain a maximum length of ${validatorValue.requiredLength} characters.`,
-            invalidNumber: 'Must contain only numbers.'
+            invalidNumber: 'Must contain only numbers.',
+            invalidAccountNumber: 'Must contain 11 numbers.'
         };
 
         return config[validatorName];
@@ -72,6 +73,14 @@ export class ValidationService {
         }
 
         return { invalidNumber: true };
+    }
+
+    static accountNumberValidator(control: AbstractControl) {
+        if (control.value.match(/^[0-9]{11}$/)) {
+            return null;
+        }
+
+        return { invalidAccountNumber: true };
     }
 
     static noMatch(controlName: string, matchingControlName: string): Validators | null {

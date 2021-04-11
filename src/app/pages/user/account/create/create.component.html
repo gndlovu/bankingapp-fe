@@ -1,0 +1,51 @@
+<div class="card">
+    <div class="card-header">
+        New Account
+    </div>
+    <div class="card-body">
+        <form (ngSubmit)="onCreateAccount()" [formGroup]="accountForm">
+            <div class="form-group">
+                <label for="branch_id">Branch Code:</label>
+                <select class="form-control" id="branch_id" formControlName="branch_id"
+                    [ngClass]="{'is-invalid': f.branch_id.touched && f.branch_id.invalid}"
+                    (change)="changeValue(f.branch_id, $event)">
+                    <option value="" disabled>Choose your bank branch</option>
+                    <option *ngFor="let branch of branches" [value]="branch.id">
+                        {{branch.bank + ' ' + branch.name}}
+                    </option>
+                </select>
+                <control-messages class="invalid-feedback" [control]="f.branch_id"></control-messages>
+            </div>
+            <div class="form-group">
+                <label for="email">Account Type:</label>
+                <select class="form-control" id="account_type_id" formControlName="account_type_id"
+                    [ngClass]="{'is-invalid': f.account_type_id.touched && f.account_type_id.invalid}"
+                    (change)="changeValue(f.account_type_id, $event)">
+                    <option value="" disabled>Choose your account type</option>
+                    <option *ngFor="let accountType of accountTypes" [value]="accountType.id">
+                        {{accountType.name}}
+                    </option>
+                </select>
+                <control-messages class="invalid-feedback" [control]="f.account_type_id"></control-messages>
+            </div>
+
+            <div class="form-group">
+                <label for="account_no">Account Number:</label>
+                <input type="text" class="form-control" id="account_no" formControlName="account_no"
+                    [ngClass]="{'is-invalid': f.account_no.touched && f.account_no.invalid}">
+                <control-messages class="invalid-feedback" [control]="f.account_no"></control-messages>
+            </div>
+            <div class="form-group">
+                <label for="overdraft">Overdraft:</label>
+                <input type="text" class="form-control" id="overdraft" formControlName="overdraft"
+                    [ngClass]="{'is-invalid': f.overdraft.touched && f.overdraft.invalid}">
+                <control-messages class="invalid-feedback" [control]="f.overdraft"></control-messages>
+            </div>
+
+            <button type="submit" class="btn mt-5 btn-block"
+                [class]="accountForm.valid ? 'btn-primary' : 'btn-secondary disabled'" [disabled]="!accountForm.valid">
+                <app-three-o-loader [originText]="'Create Account!'"></app-three-o-loader>
+            </button>
+        </form>
+    </div>
+</div>
