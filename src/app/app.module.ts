@@ -16,7 +16,7 @@ import { LoaderInterceptor } from './shared/interceptors/loader.interceptor';
     declarations: [
         AppComponent,
         ErrorComponent,
-        DashboardComponent
+        DashboardComponent,
     ],
     imports: [
         BrowserModule,

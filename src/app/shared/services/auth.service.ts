@@ -23,7 +23,11 @@ export class AuthService {
     }
 
     register(data: Register): Observable<any> {
-        return this._http.post(`${this.API_BASE_URL}/auth/register`, data)
+        return this._http.post(`${this.API_BASE_URL}/auth/register`, data);
+    }
+
+    profile(): Observable<any> {
+        return this._http.get(`${this.API_BASE_URL}/auth/me`);
     }
 
     logout(): Observable<any> {

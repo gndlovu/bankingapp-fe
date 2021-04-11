@@ -1,0 +1,36 @@
+<div class="card">
+    <div class="card-header">
+        {{account?.account_no}} : Transaction History
+    </div>
+    <div class="card-body">
+        <h5 class="card-title"></h5>
+        <table class="table table-sm table-hover table-striped"
+            *ngIf="transactions && transactions.length; else noTransactionsBlock">
+            <thead>
+                <tr>
+                    <th scope="col">Transaction Type</th>
+                    <th scope="col">Recipient Account</th>
+                    <th scope="col">Reference</th>
+                    <th scope="col">Recipient reference</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Created Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let transaction of transactions">
+                    <td>{{transaction.type}}</td>
+                    <td>Account | branch | acc holder & number</td>
+                    <td>{{transaction.my_reference}}</td>
+                    <td>{{transaction.their_reference || '-'}}</td>
+                    <td>{{transaction.amount}}</td>
+                    <td>{{transaction.created_at | date}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <ng-template #noTransactionsBlock>
+            <p class="text-info text-center">
+                You do not have transactions on this accounts.
+            </p>
+        </ng-template>
+    </div>
+</div>

@@ -26,4 +26,8 @@ export class AccountService {
     create(data: { account_type_id: string; branch_id: string; account_no: string; overdraft: string; }): Observable<any> {
         return this._http.post(`${this.API_BASE_URL}/bank/accounts/add`, data);
     }
+
+    getAccount(id: any): Observable<any> {
+        return this._http.get(`${this.API_BASE_URL}/bank/accounts/${id}`);
+    }
 }

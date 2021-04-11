@@ -12,7 +12,6 @@ export class ErrorHandlerService {
         let errors;
         switch (result.status) {
             case 0:
-            case 400:
             case 500:
                 errors = ['Unable to connect, the server could be temporarily unavailable or too busy. Try again in a few moments.']
                 break;

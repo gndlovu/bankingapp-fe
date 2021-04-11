@@ -18,16 +18,27 @@
             </thead>
             <tbody>
                 <tr *ngFor="let account of accounts">
-                    <td>{{account.account_no}}</td>
+                    <td>
+                        <a [routerLink]="['/transactions', account.id, 'list']">{{account.account_no}}</a>
+                    </td>
                     <td>{{account.created_at | date}}</td>
                     <td>{{account.updated_at | date}}</td>
                     <td>{{account.balance}}</td>
                     <td>{{account.overdraft}}</td>
                     <td class="text-center">
                         <div class="btn-group">
-                            <a routerLink="/transactions/deposit" class="btn btn-outline-secondary btn-sm">Deposit</a>
-                            <a routerLink="/transactions/deposit" class="btn btn-outline-secondary btn-sm">Withdraw</a>
-                            <a routerLink="/transactions/deposit" class="btn btn-outline-secondary btn-sm">Transfer</a>
+                            <a [routerLink]="['/transactions', account.id, 'deposit']"
+                                class="btn btn-outline-secondary btn-sm">
+                                Deposit
+                            </a>
+                            <a [routerLink]="['/transactions', account.id, 'withdrawal']"
+                                class="btn btn-outline-secondary btn-sm">
+                                Withdraw
+                            </a>
+                            <a [routerLink]="['/transactions', account.id, 'transfer']"
+                                class="btn btn-outline-secondary btn-sm">
+                                Transfer
+                            </a>
                         </div>
                     </td>
                 </tr>
