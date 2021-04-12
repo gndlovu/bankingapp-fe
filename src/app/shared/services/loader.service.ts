@@ -8,8 +8,10 @@ import { LoaderState } from '../models/loader';
 export class LoaderService {
     state = new BehaviorSubject<LoaderState>({ show: false });
 
-    show() {
-        this.toogleState(true);
+    show(method: string) {
+        if (method.toLowerCase() !== 'get') {
+            this.toogleState(true);
+        }
     }
 
     hide() {
