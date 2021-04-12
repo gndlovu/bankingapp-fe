@@ -1,6 +1,9 @@
 <div class="card">
     <div class="card-header">
         {{account?.account_no}} : New {{transactionType}}
+        <a [routerLink]="['/transactions', account?.id, 'list']" class="btn btn-outline-secondary btn-sm float-right">
+            Canclel
+        </a>
     </div>
     <div class="card-body">
         <form (ngSubmit)="onDeposit()" [formGroup]="transactionForm">
