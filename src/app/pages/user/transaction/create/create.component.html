@@ -5,7 +5,7 @@
     <div class="card-body">
         <form (ngSubmit)="onDeposit()" [formGroup]="transactionForm">
             <div class="row">
-                <div class="col" *ngIf="transactionType === 'transfer'">
+                <div class="col" *ngIf="transactionType === 'transfer' && f.to_account_id">
                     <select class="form-control" id="to_account_id" formControlName="to_account_id"
                         [ngClass]="{'is-invalid': f.to_account_id.touched && f.to_account_id.invalid}"
                         (change)="changeValue($event)">

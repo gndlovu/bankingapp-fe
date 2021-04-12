@@ -36,11 +36,9 @@ export class AccountStoreService {
 
     async getAccount(id: number) {
         if (!this.accounts.length) {
-            console.log('here');
             await this.fetchAll();
         }
-        console.log(this.accounts);
-        // TODO - This can be executed quicker than the constructor. Figure out how to re-load state.
+
         return this.accounts.find(account => account.id === id);
     }
 
