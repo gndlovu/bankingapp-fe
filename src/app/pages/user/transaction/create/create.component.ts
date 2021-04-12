@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ValidationService } from '../../../../shared/validators/form-fields.validator';
 import { TransactionService } from '../../../../shared/services/transaction.service';
-import { AccountService } from '../../../../shared/services/account.service';
 import { AccountStoreService } from '../../../../shared/services/account-store.service';
 import { Account } from '../../../../shared/models/account.model';
+import { Transaction } from '../../../../shared/models/transaction.model';
 
 @Component({
     selector: 'app-create',
@@ -14,7 +14,7 @@ import { Account } from '../../../../shared/models/account.model';
     styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
-    account!: Account | undefined;
+    account: Account | undefined;
     transactionType: any;
     accounts!: Account[];
 
@@ -60,8 +60,11 @@ export class CreateComponent implements OnInit {
             return;
         }
 
-        this._transaction.create(this.account?.id, this.transactionForm.value).subscribe(_ => {
-            // TODO - Update account balance and last update date in store
+        this._transaction.create(this.account?.id, this.transactionForm.value).subscribe((transaction: Transaction) => {
+
+            this._accountStore.updateAccount(transaction.account);
+            if (transaction.to_account) { this._accountStore.updateAccount(transaction.to_account); }
+
             this._router.navigate(['/transactions', this.account?.id, 'list']);
         }, (err: any) => {
             this._toastr.error(err.error.message);

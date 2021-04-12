@@ -34,7 +34,12 @@ export class AccountStoreService {
         }
     }
 
-    async getAccount(id: number) {
+    updateAccount(account: Account): void {
+        const index = this.accounts.findIndex(a => a.id === account.id);
+        this.accounts[index] = account;
+    }
+
+    async getAccount(id: number): Promise<Account | undefined> {
         if (!this.accounts.length) {
             await this.fetchAll();
         }
