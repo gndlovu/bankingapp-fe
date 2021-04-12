@@ -4,8 +4,7 @@
     </div>
     <div class="card-body">
         <h5 class="card-title"></h5>
-        <table class="table table-sm table-hover table-striped"
-            *ngIf="accounts && accounts.length; else noAccountsBlock">
+        <table class="table table-sm table-hover table-striped">
             <thead>
                 <tr>
                     <th scope="col">Account Number</th>
@@ -17,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let account of accounts">
+                <tr *ngFor="let account of accountStore.accounts$ | async">
                     <td>
                         <a [routerLink]="['/transactions', account.id, 'list']">{{account.account_no}}</a>
                     </td>
@@ -44,11 +43,5 @@
                 </tr>
             </tbody>
         </table>
-        <ng-template #noAccountsBlock>
-            <p class="text-info text-center">
-                You do not have bank accounts. Click <a routerLink="/accounts/create">here</a> to
-                create a new account.
-            </p>
-        </ng-template>
     </div>
 </div>

@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Account } from '../models/account.model';
+import { NewAccount } from '../models/new-account.model';
+import { AccountType } from '../models/account-type.model';
+import { BankBranch } from '../models/bank-branch.model';
 
 @Injectable({
     providedIn: 'root'
@@ -11,23 +15,23 @@ export class AccountService {
 
     constructor(private _http: HttpClient) { }
 
-    accountList(): Observable<any> {
-        return this._http.get(`${this.API_BASE_URL}/bank/accounts/list`);
+    accountList(): Observable<Account[]> {
+        return this._http.get<Account[]>(`${this.API_BASE_URL}/bank/accounts/list`);
     }
 
-    accountTypeList(): Observable<any> {
-        return this._http.get(`${this.API_BASE_URL}/bank/accounts/types/list`);
+    accountTypeList(): Observable<AccountType[]> {
+        return this._http.get<AccountType[]>(`${this.API_BASE_URL}/bank/accounts/types/list`);
     }
 
-    bankBranchList(): Observable<any> {
-        return this._http.get(`${this.API_BASE_URL}/bank/branches/list`);
+    bankBranchList(): Observable<BankBranch[]> {
+        return this._http.get<BankBranch[]>(`${this.API_BASE_URL}/bank/branches/list`);
     }
 
-    create(data: { account_type_id: string; branch_id: string; account_no: string; overdraft: string; }): Observable<any> {
-        return this._http.post(`${this.API_BASE_URL}/bank/accounts/add`, data);
+    create(data: NewAccount): Observable<Account> {
+        return this._http.post<Account>(`${this.API_BASE_URL}/bank/accounts/add`, data);
     }
 
-    getAccount(id: any): Observable<any> {
-        return this._http.get(`${this.API_BASE_URL}/bank/accounts/${id}`);
+    getAccount(id: number): Observable<Account> {
+        return this._http.get<Account>(`${this.API_BASE_URL}/bank/accounts/${id}`);
     }
 }

@@ -4,6 +4,7 @@ import { forkJoin } from 'rxjs';
 import { Router } from '@angular/router';
 import { ValidationService } from '../../../../shared/validators/form-fields.validator';
 import { AccountService } from '../../../../shared/services/account.service';
+import { AccountStoreService } from 'src/app/shared/services/account-store.service';
 
 @Component({
     selector: 'app-create',
@@ -20,7 +21,7 @@ export class CreateComponent implements OnInit {
         overdraft: new FormControl('0', { validators: [Validators.required, ValidationService.numberValidator] }),
     });
 
-    constructor(private _account: AccountService, private _router: Router) { }
+    constructor(private _account: AccountService, private _router: Router, private _accountStore: AccountStoreService) { }
 
     get f(): { [key: string]: AbstractControl } { return this.accountForm.controls; }
 
@@ -35,14 +36,14 @@ export class CreateComponent implements OnInit {
         field.setValue(e.target.value);
     }
 
-    onCreateAccount(): void {
+    async onCreateAccount(): Promise<void> {
         if (!this.accountForm.dirty && !this.accountForm.valid) {
             return;
         }
 
-        this._account.create(this.accountForm.value).subscribe(_ => {
+        const created = await this._accountStore.addAccount(this.accountForm.value);
+        if (created) {
             this._router.navigate(['/accounts/list']);
-        });
+        }
     }
-
 }

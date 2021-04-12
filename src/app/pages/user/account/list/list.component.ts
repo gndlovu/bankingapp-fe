@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from '../../../../shared/services/account.service';
+import { AccountStoreService } from '../../../../shared/services/account-store.service';
 
 @Component({
     selector: 'app-list',
@@ -7,12 +7,7 @@ import { AccountService } from '../../../../shared/services/account.service';
     styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-    accounts: any;
-    constructor(private _account: AccountService) { }
+    constructor(public accountStore: AccountStoreService) { }
 
-    ngOnInit(): void {
-        this._account.accountList().subscribe(accounts => {
-            this.accounts = accounts;
-        });
-    }
+    ngOnInit(): void { }
 }

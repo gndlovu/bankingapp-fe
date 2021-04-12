@@ -15,7 +15,7 @@ export class TransactionService {
         return this._http.get(`${this.API_BASE_URL}/bank/transactions/${account_id}/list`);
     }
 
-    create(account_id: number, transaction: any): Observable<any> {
+    create(account_id: number | undefined, transaction: any): Observable<any> {
         return this._http.post(`${this.API_BASE_URL}/bank/transactions/${account_id}/create`, transaction);
     }
 }
