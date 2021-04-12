@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountStoreService } from '../shared/services/account-store.service';
 
 @Component({
     selector: 'app-layout',
@@ -7,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-    constructor() { }
+    constructor(public accountStore: AccountStoreService) { }
 
     ngOnInit(): void {
+        this.accountStore.fetchAll();
     }
 }

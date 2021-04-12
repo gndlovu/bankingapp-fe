@@ -15,11 +15,11 @@ export class ListComponent implements OnInit {
 
     constructor(private _route: ActivatedRoute, private _transaction: TransactionService, public accountStore: AccountStoreService) { }
 
-    ngOnInit(): void {
+    ngOnInit() {
         const id = Number(this._route.snapshot.paramMap.get('account_id'));
-        this._transaction.transactionHistory(id).subscribe(transactions => {
+        this._transaction.transactionHistory(id).subscribe(async (transactions) => {
             this.transactions = transactions;
-            this.account = this.accountStore.getAccount(id);
+            this.account = await this.accountStore.getAccount(id);
         });
     }
 }

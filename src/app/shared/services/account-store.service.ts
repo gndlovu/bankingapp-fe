@@ -12,9 +12,7 @@ export class AccountStoreService {
     private readonly _accounts = new BehaviorSubject<Account[]>([]);
     readonly accounts$ = this._accounts.asObservable();
 
-    constructor(private _account: AccountService) {
-        this.fetchAll();
-    }
+    constructor(private _account: AccountService) { }
 
     get accounts(): Account[] {
         return this._accounts.getValue();
@@ -36,12 +34,21 @@ export class AccountStoreService {
         }
     }
 
-    getAccount(id: number): Account | undefined {
+    async getAccount(id: number) {
+        if (!this.accounts.length) {
+            console.log('here');
+            await this.fetchAll();
+        }
+        console.log(this.accounts);
         // TODO - This can be executed quicker than the constructor. Figure out how to re-load state.
         return this.accounts.find(account => account.id === id);
     }
 
     async fetchAll() {
         this.accounts = await this._account.accountList().toPromise();
+    }
+
+    clear(): void {
+        this.accounts = [];
     }
 }

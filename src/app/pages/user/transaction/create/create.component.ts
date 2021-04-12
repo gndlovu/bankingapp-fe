@@ -32,10 +32,10 @@ export class CreateComponent implements OnInit {
         private _accountStore: AccountStoreService
     ) { }
 
-    ngOnInit(): void {
+    async ngOnInit() {
         this.transactionType = this._route.snapshot.paramMap.get('type');
         const id = Number(this._route.snapshot.paramMap.get('account_id'));
-        this.account = this._accountStore.getAccount(id);
+        this.account = await this._accountStore.getAccount(id);
 
         this.f.type.setValue(this.transactionType);
 

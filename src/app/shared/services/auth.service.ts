@@ -42,13 +42,17 @@ export class AuthService {
 
     logout(): Observable<any> {
         return this._http.post(`${this.API_BASE_URL}/auth/logout`, {}).pipe(
-            tap(_ => { localStorage.removeItem(this.JWT) })
+            tap(_ => { this.removeJwt() })
         );
     }
 
     get jwt(): Jwt | null {
         const jwt = localStorage.getItem(this.JWT);
         return jwt ? JSON.parse(jwt) : null;
+    }
+
+    removeJwt(): void {
+        localStorage.removeItem(this.JWT);
     }
 
     isAuthenticated(): boolean {

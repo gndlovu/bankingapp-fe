@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AccountStoreService } from '../../shared/services/account-store.service';
 import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class NavbarComponent implements OnInit {
     profile: any;
     isNavbarCollapsed = true;
 
-    constructor(private _auth: AuthService, private _router: Router) { }
+    constructor(private _auth: AuthService, private _router: Router, public accountStore: AccountStoreService) { }
 
     ngOnInit(): void {
         this._auth.profile().subscribe(profile => {
@@ -21,6 +22,7 @@ export class NavbarComponent implements OnInit {
 
     onLogout(): void {
         this._auth.logout().subscribe(_ => {
+            this.accountStore.clear();
             this._router.navigate(['/auth']);
         });
     }
