@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountStoreService } from '../../../../shared/services/account-store.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Account } from '../../../../shared/models/account.model';
+import { AppState } from '../../../../shared/models/app-state.model';
 
 @Component({
     selector: 'app-list',
@@ -7,7 +10,15 @@ import { AccountStoreService } from '../../../../shared/services/account-store.s
     styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-    constructor(public accountStore: AccountStoreService) { }
+    accounts$!: Observable<Account[]>;
+    loading$!: Observable<boolean>;
+    err$!: Observable<Error | undefined>;
 
-    ngOnInit(): void { }
+    constructor(private _store: Store<AppState>) { }
+
+    ngOnInit(): void {
+        this.accounts$ = this._store.select(store => store.account.list);
+        this.loading$ = this._store.select(store => store.account.loading);
+        this.err$ = this._store.select(store => store.account.err);
+    }
 }
