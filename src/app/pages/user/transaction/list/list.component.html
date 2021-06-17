@@ -16,8 +16,7 @@
     </div>
     <div class="card-body">
         <h5 class="card-title"></h5>
-        <table class="table table-sm table-hover table-striped"
-            *ngIf="transactions && transactions.length; else noTransactionsBlock">
+        <table class="table table-sm table-hover table-striped" *ngIf="(transactions$ | async); else noTransactions">
             <thead>
                 <tr>
                     <th scope="col">Transaction Type</th>
@@ -28,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let transaction of transactions">
+                <tr *ngFor="let transaction of transactions$ | async">
                     <td>{{transaction.type}}</td>
                     <td>{{transaction.to_account?.account_no}}</td>
                     <td>{{transaction.reference}}</td>
@@ -37,7 +36,7 @@
                 </tr>
             </tbody>
         </table>
-        <ng-template #noTransactionsBlock>
+        <ng-template #noTransactions>
             <p class="text-info text-center">
                 You do not have transactions on this accounts.
             </p>

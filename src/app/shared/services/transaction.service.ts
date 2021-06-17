@@ -12,8 +12,8 @@ export class TransactionService {
 
     constructor(private _http: HttpClient) { }
 
-    transactionHistory(account_id: any): Observable<any> {
-        return this._http.get(`${this.API_BASE_URL}/bank/transactions/${account_id}/list`);
+    transactionHistory(account_id: any): Observable<Transaction[]> {
+        return this._http.get<Transaction[]>(`${this.API_BASE_URL}/bank/transactions/${account_id}/list`);
     }
 
     create(account_id: number | undefined, transaction: any): Observable<Transaction> {
